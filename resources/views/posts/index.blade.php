@@ -18,7 +18,7 @@
                     @foreach ($posts as $post)
                     <h3>{{$post->title}}</h3>
                     <p>{{$post->message}}</p>
-                    <small>Gepost door {{$post->user->name}} op {{$post->created_at}}</small>
+                    <small>Gepost door {{$post->user->name}} op {{$post->created_at->format('d/m/Y \o\m H:i')}}</small>
                     <hr>
                     @endforeach
 
