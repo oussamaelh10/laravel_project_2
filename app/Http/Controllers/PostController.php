@@ -7,8 +7,12 @@ use App\Models\Post;
 use Auth;
 
 
-class PostController extends Controller
-{
+class PostController extends Controller{
+
+    public function __construct(){
+        $this->middleware('auth', ['except' => ['index']]);
+    }
+
     public function index(){
         // $post = Post::latest()->get(); is zelfde als orderBy.
         $posts = Post::orderBy('created_at','desc')->get();
@@ -36,5 +40,32 @@ class PostController extends Controller
 
     }
 
+    public function edit($id){
+        $post = Post::findOrFail($id);
+        if($post->user_id != Auth::user()->id){
+            abort(403);
+        }
 
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update($id, Request $request){
+        $post = Post::findOrFail($id);
+
+        if($post->user_id != Auth::user()->id){
+            abort(403);
+        }
+
+
+        $validated = $request->validate([
+            'title'      => 'required|min:3',
+            'content'    => 'required|min:20',
+        ]);
+
+        $post->title = $validated['title'];
+        $post->message = $validated['content'];
+        $post->save();
+
+        return redirect()->route('index')->with('status','Post edited');
+    }
 }
