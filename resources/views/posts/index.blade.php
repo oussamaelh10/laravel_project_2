@@ -18,10 +18,16 @@
                     @foreach ($posts as $post)
                     <h3>{{$post->title}}</h3>
                     <p>{{$post->message}}</p>
-                    <small>Gepost door {{$post->user->name}} op {{$post->created_at->format('d/m/Y \o\m H:i')}}</small>
-                    @if($post->user_id == Auth::user()->id)
+                    <small>Gepost door {{$post->user->name}} op {{$post->created_at->format('d/m/Y \o\m H:i')}}</small><br>
+                    @auth
+                    @if(Auth::check() && $post->user_id == Auth::user()->id)
                         <a href="{{route('posts.edit', $post->id)}}">Edit Post</a>
+                    @else 
+                    <a href="{{route('like', $post->id)}}">Like Post</a>    
                     @endif
+                    <br>
+                    @endauth
+                    Post heeft {{$post->likes()->count()}} likes
 
                     <hr>
                     @endforeach

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,8 @@ use App\Http\Controllers\PostController;
 Route::get('/', [PostController::class, 'index'])->name('index');
 
 Route::resource('posts', PostController::class);
+
+Route::get('like/{postid}', [LikeController::class, 'like'])->name('like'); 
 
 Auth::routes();
 
