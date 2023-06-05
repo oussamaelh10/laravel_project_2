@@ -10,13 +10,18 @@ use Auth;
 class PostController extends Controller{
 
     public function __construct(){
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index','show']]);
     }
 
     public function index(){
         // $post = Post::latest()->get(); is zelfde als orderBy.
         $posts = Post::orderBy('created_at','desc')->get();
         return view('posts.index', compact('posts')); 
+    }
+
+    public function show($id){
+        $post = Post::findOrFail($id);
+        return view('posts.show', compact('post'));
     }
 
     public function create(){

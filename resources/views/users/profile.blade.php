@@ -12,16 +12,18 @@
                     <h2>Gemaakte Posts</h2>
 
                     @foreach($user->posts as $post)
-                    <a href="">{{ $post->title}} </a><br>
+                    <a href="{{ route('posts.show', $post->id)}}">{{ $post->title}} </a><br>
                     @endforeach
 
                 <br>
+                <hr>
                 <br>
+                
 
                     <h2>Gelikete Posts</h2>
 
                     @foreach($user->likes as $like)
-                    <a href="">{{ $like->post->title}} </a><br>
+                    <a href="{{ route('posts.show', $like->post_id)}}">{{ $like->post->title}} </a><br>
                     @endforeach
 
         

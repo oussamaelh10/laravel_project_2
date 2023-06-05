@@ -16,8 +16,7 @@
 
                    
                     @foreach ($posts as $post)
-                    <h3>{{$post->title}}</h3>
-                    <p>{{$post->message}}</p>
+                    <h3> <a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a></h3>
                     <small>Gepost door <a href="{{ route('profile', $post->user_id)}}"> {{$post->user->name}} </a> op {{$post->created_at->format('d/m/Y \o\m H:i')}}</small><br>
                     @auth
                     @if(Auth::check() && $post->user_id == Auth::user()->id)
