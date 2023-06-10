@@ -24,8 +24,15 @@
                     SneakerFreak
                 </a>
                 @auth
-                <a href="{{route('posts.create')}}">New Post</a>
-                @endauth
+
+                <a href="{{route('posts.create')}}">New Post</a>    
+                
+                <a href="{{ route('Profile', Auth::user()->name) }}" style="padding-left: 10px;">My Profile</a>
+
+                <a href="{{ route('contact') }}" style="padding-left: 50px;">Contact</a>
+@endauth
+           
+            
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
+
 
 
 /*
@@ -28,3 +30,10 @@ Route::get('user/{name}', [UserController::class, 'profile'])->name('profile');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/profile', [UserController::class, 'showProfile'])->name('Profile');
+Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
+
+Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

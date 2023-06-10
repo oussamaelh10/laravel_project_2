@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Like;
+
 use Auth;
 
 
@@ -72,5 +74,17 @@ class PostController extends Controller{
         $post->save();
 
         return redirect()->route('index')->with('status','Post edited');
+    }
+
+    public function destroy($id){
+        if(!Auth::user()->is_admin){
+            abort(403, 'Only admins can delete posts');
+        }
+
+        $post = Post::findOrFail($id);
+        $likes = Like::where('post_id', '=', $post->id) ->delete();
+        $post->delete();
+
+        return redirect() ->route('index')->with('status', 'Post Deleted');
     }
 }
