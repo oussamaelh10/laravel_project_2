@@ -22,10 +22,11 @@ class UserController extends Controller
 }
 public function update(Request $request, $name)
 {
-    $request->validate([
-        'password' => 'required|min:8',
-        'email' => 'required|email',
-    ]);
+    $profile = Profile::find($id);
+    $profile->username = $request->input('username');
+    $profile->birthday = $request->input('birthday');
+    $profile->bio = $request->input('bio');
+    $profile->save();
 
     $user = User::where('name', $name)->first();
 
@@ -39,6 +40,4 @@ public function update(Request $request, $name)
 
     return redirect()->route('profile', ['name' => $user->name])->with('success', 'Profile updated successfully');
 }
-
-
 }
