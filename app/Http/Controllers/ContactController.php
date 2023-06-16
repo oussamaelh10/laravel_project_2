@@ -1,66 +1,56 @@
 <?php
-
 namespace App\Http\Controllers;
+
+use App\Mail\ContactFormSubmitted;
+use App\Models\Contact;
 use Illuminate\Http\Request;
-use \App\Models\Contact;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
-
-class ContactController extends Controller{
-
-  public function contact(){
-
-        return view('contact.contact');
-
+class ContactController extends Controller
+{
+    public function index()
+    {
+        return view('contact.index');
     }
 
-    public function show(){
-
-        return view('contact');
-
+    public function thankyou()
+    {
+        return view('contact.thankyou');
     }
-
-
-
 
     public function submit(Request $request)
+{
+    $validatedData = $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'message' => 'required',
+    ]);
 
+    $contact = new Contact;
+    $contact->name = $validatedData['name'];
+    $contact->email = $validatedData['email'];
+    $contact->message = $validatedData['message'];
+    $contact->save();
+
+    Mail::to('lerifton99@gmail.com')->send(new ContactFormSubmitted($validatedData));
+
+    return redirect()->route('contact.thankyou');
+}
+}
+
+    /* public function submit(Request $request)
     {
-
-        // Valideer het ingediende contactformulier
-
         $validatedData = $request->validate([
-
             'name' => 'required',
             'email' => 'required|email',
             'message' => 'required',
-
         ]);
 
-        //store data in Database
+        Contact::create($validatedData);
 
-        Contact::create($request->all());
+        Mail::to('lerifton99@gmail.com')->send(new ContactFormSubmitted($validatedData));
 
-        //Send mail to admin
-        Mail::send('emails.contact-message', array(
-            'name' => $request->get('name'),
-            'email' =>$request->get('email'),
-            'user_query' =>$request->get('message'),),
-            function($message) use ($request){
-                $message->from($request->email);
-                $message->to('elhallabioussama@outlook.com');
-            
-    });
-
-        return back()->with('Message has been send with succes');
-
+        return redirect()->route('contact.thankyou');
     }
-        // Verwerk het ingediende contactformulier (bijvoorbeeld opslaan in de database, verzenden via e-mail, etc.)
-        // Stuur een bedankbericht
-
-      
-
-    }
-
-
-
+}
+*/

@@ -9,18 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
+
     {
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->date('birthday')->nullable()->default(null);
+            $table->string('avatar')->nullable()->default(null);
+            $table->text('bio')->nullable()->default(null);
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
+
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     public function profile($name){
@@ -18,16 +19,10 @@ class UserController extends Controller
     public function showProfile()
 {
     $user = Auth::user(); 
-    return view('users.showprofil', compact('user'));
+    return view('profil', compact('user'));
 }
 public function update(Request $request, $name)
 {
-    $profile = Profile::find($id);
-    $profile->username = $request->input('username');
-    $profile->birthday = $request->input('birthday');
-    $profile->bio = $request->input('bio');
-    $profile->save();
-
     $user = User::where('name', $name)->first();
 
     if (!$user) {
@@ -36,8 +31,12 @@ public function update(Request $request, $name)
 
     $user->password = Hash::make($request->password);
     $user->email = $request->email;
+    
     $user->save();
 
     return redirect()->route('profile', ['name' => $user->name])->with('success', 'Profile updated successfully');
 }
+
+
+
 }

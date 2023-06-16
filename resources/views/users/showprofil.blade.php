@@ -7,11 +7,7 @@
     <div class="card">
         <div class="card-header">User Profile </div>
 
-        <div class="card-body">
-            <h3>User Name : {{ $user->name }}</h3>
-            <h3>Birthday : {{ $user->date_of_birth }}</h3>
-            <h3>About me :</h3>
-            <p>{{ $user->bio }}</p>
+        
        
 
 <div class="card-footer">

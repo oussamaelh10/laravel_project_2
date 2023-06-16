@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('_user', function (Blueprint $table) {
-            $table->date('birthday')->nullable();
+        Schema::create('faq_categories', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
-        
     }
 
     /**
@@ -22,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('_user', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('faq_categories');
     }
 };

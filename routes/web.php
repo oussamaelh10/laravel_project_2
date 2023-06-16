@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FAQController;
 
 
 
@@ -19,6 +20,7 @@ use App\Http\Controllers\ContactController;
 |
 */
 
+
 Route::get('/', [PostController::class, 'index'])->name('index');
 
 Route::resource('posts', PostController::class);
@@ -32,8 +34,17 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/profile', [UserController::class, 'showProfile'])->name('Profile');
-Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
+Route::get('/profile', [UserController::class, 'Profile'])->name('Profile');
+Route::put('/profile/{name}', [UserController::class, 'update'])->name('profile.update');
 
-Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::get('/thankyou', [ContactController::class, 'thankyou'])->name('contact.thankyou');
+
+// FAQ-Routes 
+Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+Route::resource('faq/items', 'FAQItemController');
+
+
+
+

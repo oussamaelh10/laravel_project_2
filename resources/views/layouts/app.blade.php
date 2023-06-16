@@ -26,8 +26,6 @@
                 @auth
 
                 <a href="{{route('posts.create')}}">New Post</a>    
-                
-                <a href="{{ route('Profile', Auth::user()->name) }}" style="padding-left: 10px;">My Profile</a>
 
                 <a href="{{ route('contact') }}" style="padding-left: 50px;">Contact</a>
 @endauth
@@ -45,6 +43,18 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                    @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile', ['name' => Auth::user()->name]) }}">Profiel</a>
+                    </li>
+
+                    <ul>
+                        <!-- Andere menu-items -->
+                        <li><a href="{{ route('faq') }}">FAQ</a></li>
+                    </ul>
+                    
+
+                    @endauth
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
