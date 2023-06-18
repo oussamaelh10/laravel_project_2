@@ -5,7 +5,9 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\FAQController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FaqCategoryController;
+
 
 
 
@@ -41,10 +43,21 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 Route::get('/thankyou', [ContactController::class, 'thankyou'])->name('contact.thankyou');
 
-// FAQ-Routes 
-Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
-Route::resource('faq/items', 'FAQItemController');
+// FAQ page-routes
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+Route::post('/faq', [FaqController::class, 'store'])->name('faq.store');
+Route::get('/faq-categories', [FaqController::class, 'showCategories'])->name('faq.categories');
+ 
+// FAQ administration
+Route::prefix('admin/faq')->middleware('admin')->group(function () {
+    Route::resource('categories', FaqCategoryController::class)->except(['show'])->names([
+        'index' => 'admin.categories.index',
+        // ...
+    ]);
+ 
+ });
 
 
 
+ 
 

@@ -23,13 +23,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     SneakerFreak
                 </a>
-                @auth
-
-                <a href="{{route('posts.create')}}">New Post</a>    
-
-                <a href="{{ route('contact') }}" style="padding-left: 50px;">Contact</a>
-@endauth
-           
+                
             
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -38,6 +32,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        
+                        <li class="nav-item">
+                            @auth
+                            <a class="nav-link" href="{{route('posts.create')}}">New Post</a>
+                            @endauth 
+                        </li>
+
+                        <li class="nav-item">
+                            @auth
+                            <a class="nav-link" href="{{ route('contact') }}" style="padding-left: 50px;">Contact-us</a>
+                            @endauth 
+                        </li>
+
+                        
 
                     </ul>
 
@@ -48,10 +56,21 @@
                         <a class="nav-link" href="{{ route('profile', ['name' => Auth::user()->name]) }}">Profiel</a>
                     </li>
 
-                    <ul>
+                   
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('faq.index') }}"> FAQ-categorieën</a>
+                    </li>
+
+                    
+
+                    <!-- Knop naar beheer FAQ vraag- en antwoordparen -->
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('faq.categories') }}">Beheer FAQ </a>
+                    </li>
                         <!-- Andere menu-items -->
-                        <li><a href="{{ route('faq') }}">FAQ</a></li>
-                    </ul>
+                       
                     
 
                     @endauth
