@@ -8,7 +8,7 @@
                 <div class="card-header">New Post</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('posts.store')}}">
+                    <form method="POST" action="{{route('posts.store')}}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
@@ -37,6 +37,20 @@
                                 @enderror
                             </div>
                         </div>
+                        <!-- Voeg de volgende code toe voor het afbeeldingsveld -->
+                         <div class="row mb-3">
+                             <label for="image" class="col-md-4 col-form-label text-md-end">Afbeelding</label>
+
+                             <div class="col-md-6">
+                                 <input type="file" id="image" name="image" accept="image/*" class="form-control @error('image') is-invalid @enderror">
+
+                             @error('image')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                    </span>
+                                 @enderror
+                                </div>
+                            </div>
                         
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">

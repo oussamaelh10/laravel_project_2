@@ -20,6 +20,7 @@ class PostController extends Controller{
         $posts = Post::orderBy('created_at','desc')->get();
         return view('posts.index', compact('posts')); 
     }
+    
 
     public function show($id){
         $post = Post::findOrFail($id);
@@ -35,12 +36,20 @@ class PostController extends Controller{
         $validated = $request->validate([
             'title'      => 'required|min:3',
             'content'    => 'required|min:20',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Valideer het bestandstype en de grootte
         ]);
 
         $post = new Post;
         $post->title= $validated['title'];
         $post->message = $validated['content'];
         $post->user_id = Auth::user()->id;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = $image->store('public/images');
+            $post->image = $path;
+        }
+
         $post->save();
 
         return redirect()->route('index')->with('status','Post added');
@@ -67,10 +76,18 @@ class PostController extends Controller{
         $validated = $request->validate([
             'title'      => 'required|min:3',
             'content'    => 'required|min:20',
+            
         ]);
 
         $post->title = $validated['title'];
         $post->message = $validated['content'];
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = $image->store('public/images');
+            $post->image = $path;
+        }
+    
         $post->save();
 
         return redirect()->route('index')->with('status','Post edited');
@@ -87,4 +104,5 @@ class PostController extends Controller{
 
         return redirect() ->route('index')->with('status', 'Post Deleted');
     }
+    
 }

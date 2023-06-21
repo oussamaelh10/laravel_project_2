@@ -8,7 +8,7 @@
                 <div class="card-header">Edit Post</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('posts.update', $post->id)}}">
+                    <form method="POST" action="{{route('posts.update', $post->id) }}">
                         @csrf
                         @method('PUT')
 
@@ -25,6 +25,24 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">Image</label>
+                        
+                            <div class="col-md-6">
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <br>
+                                @if ($post->image)
+                                <img src="{{ $post->getImageUrlAttribute() }}" alt="Post Image" style="max-width: 300px;">
+                                  @endif
+                            </div>
+                        </div>
+                        
 
                         <div class="row mb-3">
                             <label for="title" class="col-md-4 col-form-label text-md-end">Content</label>

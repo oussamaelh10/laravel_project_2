@@ -56,10 +56,14 @@
         Edit profile
     </button>
     <div class="collapse mt-3" id="profileOptions">
-        <form action="{{ route('profile.update', ['name' => $user->name]) }}" method="POST">
+        <form action="{{ route('profile.update', ['name' => $user->name]) }}" method="POST"  enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ $user->name }}" placeholder="New username">
+                </div>
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Nouveau mot de passe">
             </div>
@@ -67,11 +71,18 @@
                 <label for="email" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Nouvel e-mail">
             </div>
+            <div class="mb-3">
+                <label for="bio" class="form-label">Bio</label>
+                <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="New bio">{{ $user->bio }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="avatar" class="form-label">Avatar</label>
+                <input type="file" class="form-control" id="avatar" name="avatar">
+            </div>
+           
             <button type="submit" class="btn btn-primary">Save</button>
 
-                   
-
-                   
+            
 
                 </div>
 

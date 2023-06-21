@@ -55,4 +55,43 @@ public function showCategories()
  
     return view('faq.faq-categories', compact('categories'));
 }
+
+public function postResponse(Request $request, $questionId)
+{
+    $question = FaqQuestion::findOrFail($questionId);
+ 
+    // Voeg validatie toe aan de response
+    $validatedData = $request->validate([
+        'response' => 'required|min:3',
+    ]);
+ 
+    $question->response = $request->response;
+    $question->save();
+ 
+    return redirect()->back()->with('success', 'Response gepost!');
+}
+public function destroy($id)
+
+    {
+
+        $question = FaqQuestion::findOrFail($id);
+
+
+
+
+        if (auth()->user()->isAdmin()) {
+
+            $question->delete();
+
+            return redirect()->back()->with('success', 'Vraag succesvol verwijderd.');
+
+        }
+
+
+
+
+        return redirect()->back()->with('error', 'Je hebt geen toestemming om deze vraag te verwijderen.');
+
+    }
+
 }

@@ -34,23 +34,6 @@ class ContactController extends Controller
 
     Mail::to('lerifton99@gmail.com')->send(new ContactFormSubmitted($validatedData));
 
-    return redirect()->route('contact.thankyou');
+    return redirect()->back()->with('success', 'Bedankt voor je bericht! We nemen zo snel moegelijk contact met je op.');
 }
 }
-
-    /* public function submit(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'message' => 'required',
-        ]);
-
-        Contact::create($validatedData);
-
-        Mail::to('lerifton99@gmail.com')->send(new ContactFormSubmitted($validatedData));
-
-        return redirect()->route('contact.thankyou');
-    }
-}
-*/

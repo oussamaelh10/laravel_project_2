@@ -62,6 +62,14 @@
                         <a class="nav-link" href="{{ route('faq.index') }}"> FAQ-categorieën</a>
                     </li>
 
+                    <!-- Andere inhoud van app.blade.php -->
+
+                    @if (Auth::check() && Auth::user()->is_admin)
+
+                    <a class="nav-link"href="{{ route('admin.users') }}">All Users</a>
+
+                    @endif
+
                     
 
                     <!-- Knop naar beheer FAQ vraag- en antwoordparen -->

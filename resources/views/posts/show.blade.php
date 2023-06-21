@@ -9,17 +9,17 @@
 
                 <div class="card-body">
                    
-                   
-                   
                     <small>Gepost door <a href="{{ route('profile', $post->user->name)}}"> {{$post->user->name}} </a> op {{$post->created_at->format('d/m/Y \o\m H:i')}}</small><br>
                 <br>    
+                @if ($post->image)
+                        <img src="{{ $post->getImageUrlAttribute() }}" alt="Post Image">
+                    @endif
+                    <br>
                     
                     {{$post->message}}
 
                 <br><br>
-                
-                    
-                    
+            
                     @auth
                     @if(Auth::check() && $post->user_id == Auth::user()->id)
                         <a href="{{route('posts.edit', $post->id)}}">Edit Post</a>
